@@ -22,4 +22,12 @@ There are three folders in this repository which contain the files of primary im
 1. datacleaning.ipynb
 	- This notebook contains all of the data cleaning. The original data files are read using ```pd.read_csv```. Unnecessary columns are dropped, null values are dropped, and data types are changed to be consistent throughout. The bigfoot data and ufo data came in multiple csv's, and were merged into one data set each. The cleaned data is then exported as csv and pkl files into the **resources** folder.
 2. resources folder
-   	- Within this folder are all of the cleaned data csv and pkl files. The **uncleaned data** folder contains all of the source files pulled directly from the data sites listed above. 
+   	- Within this folder are all of the cleaned data csv and pkl files. The **uncleaned data** folder contains all of the source files pulled directly from the data sites listed above.
+  
+## HTML_JS Folder
+1. index.html
+	- This file contains the HTML code for the interactive dashboard.
+2. plots.js
+   	- This file contains the Javascript code for the interactive dashboard.
+
+
