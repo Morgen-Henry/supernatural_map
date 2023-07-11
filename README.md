@@ -1,4 +1,5 @@
-# Project 3 - An interactive map showing UFO, bigfoot and haunted place in the US
+# Project 3 - 
+## An interactive map showing UFO, bigfoot and haunted place in the US
 
 - Group Members:
 	- Morgen Henry
