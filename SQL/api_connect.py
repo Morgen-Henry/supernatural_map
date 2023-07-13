@@ -5,21 +5,23 @@ from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
 from datetime import datetime
+
 from flask import Flask, jsonify
 
-engine = create_engine("sqlite:///Supnatural_Map.sqlite")
+engine = create_engine("sqlite:///SQL\Supnatural_Map.sqlite")
 
-session = Session(engine)
 
+#session = Session(engine)
+#conn = engine.connect()
 
 # reflect an existing database into a new model
 Base = automap_base()
 # reflect the tables
-Base.prepare(autoload_with=engine)
+Base.prepare(autoload_with=engine, reflect = True)
 
 # Save reference to the table
 aliens = Base.classes.ufo
-haunt =  Base.classes.hauntings
+#haunt =  Base.classes.hauntings
 Bigfoot_report = Base.classes.bigfoot
 
 # set up flask
