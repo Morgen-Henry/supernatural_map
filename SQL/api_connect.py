@@ -5,13 +5,16 @@ from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
 from datetime import datetime
-
+import os.path
 from flask import Flask, jsonify
 
-engine = create_engine("sqlite:///SQL\Supnatural_Map.sqlite")
+data_folder = os.path.join("SQL")
+file_to_open = os.path.join(data_folder, "Supnatural_Map.sqlite")
+
+engine = create_engine(f"sqlite:///{file_to_open}")
 
 
-#session = Session(engine)
+session = Session(engine)
 #conn = engine.connect()
 
 # reflect an existing database into a new model
