@@ -1,5 +1,6 @@
 # Project 3 
 ## An interactive map marking UFO sightings, Bigfoot sightings, and various haunted places in the US.
+Link to presentation: https://docs.google.com/presentation/d/1mUf4jQ6KF41G9Ts9xT8VNtGgcsMumkllIyL9-bx45bQ/edit?usp=sharing
 
 - Group Members:
 	- Morgen Henry
