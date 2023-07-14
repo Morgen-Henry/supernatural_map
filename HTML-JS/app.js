@@ -3,6 +3,7 @@ var bounds;
 var markers = {
   bigfoot: [],
   hauntedplaces: [],
+  ufosightings: []
 };
 
 function initMap() {
@@ -12,19 +13,16 @@ function initMap() {
     styles: [
       {
         featureType: 'poi',
-        stylers: [{ visibility: 'off' }],
+        stylers: [{ visibility: 'off' }]
       },
       {
         featureType: 'transit',
-        stylers: [{ visibility: 'off' }],
-      },
-    ],
+        stylers: [{ visibility: 'off' }]
+      }
+    ]
   });
 
   bounds = new google.maps.LatLngBounds();
-
-  loadMarkers('bigfoot', 'http://127.0.0.1:5000/api/v1.0/bigfoot', 'https://maps.google.com/mapfiles/ms/icons/green-dot.png', 4, 5, 8);
-  //loadMarkers('hauntedplaces', '../Data Cleaning/resources/hauntedplaces_data.csv', 'https://maps.google.com/mapfiles/ms/icons/red-dot.png', 6, 5, 4);
 
   var checkboxes = document.querySelectorAll('#checkboxes input[type="checkbox"]');
 
@@ -55,52 +53,73 @@ function initMap() {
       showAllMarkers();
     }
   });
+
+  showAllMarkers();
+
+  loadMarkers('bigfoot', 'http://127.0.0.1:5000/api/v1.0/bigfoot', 'https://maps.google.com/mapfiles/ms/icons/green-dot.png', {
+    latitude: 'latitude',
+    longitude: 'longitude',
+    state: 'stateName',
+    title: 'observered'
+  });
+  
+  loadMarkers('hauntedplaces', 'http://127.0.0.1:5000/api/v1.0/haunting', 'https://maps.google.com/mapfiles/ms/icons/red-dot.png', {
+    latitude: 'latitude',
+    longitude: 'longitude',
+    state: 'stateCode',
+    title: 'summary'
+  });
+
+loadMarkers('ufosightings', 'http://127.0.0.1:5000/api/v1.0/UFO', 'https://maps.google.com/mapfiles/ms/icons/purple-dot.png', {
+  latitude: 'latitude',
+  longitude: 'longitude',
+  state: 'stateCode',
+  title: 'summary'
+});
 }
 
-function loadMarkers(category, dataUrl, markerIconUrl, latIndex, lngIndex, stateIndex) {
-  Papa.parse(dataUrl, {
-    download: true,
-    skipEmptyLines: true,
-    skipLinesWithEmptyValues: true,
-    complete: function (results) {
-      results.data.forEach((row, index) => {
-        if (index === 0) {
-          return;
-        }
+function loadMarkers(category, dataUrl, markerIconUrl, keyNames) {
+  fetch(dataUrl)
+    .then(response => response.json())
+    .then(data => {
+      data.forEach(row => {
+        const lat = row[keyNames.latitude];
+        const lng = row[keyNames.longitude];
+        const state = row[keyNames.state];
+        const title = row[keyNames.title];
 
-        var lat = parseFloat(row[latIndex]);
-        var lng = parseFloat(row[lngIndex]);
-        var state = row[stateIndex];
-
-        var title = row[2];
-        var markerIcon = {
+        const markerIcon = {
           url: markerIconUrl,
-          scaledSize: new google.maps.Size(32, 32),
+          scaledSize: new google.maps.Size(15, 15),
           origin: new google.maps.Point(0, 0),
           anchor: new google.maps.Point(16, 32),
         };
 
-        var marker = new google.maps.Marker({
-          position: { lat: lat, lng: lng },
-          map: map,
-          title: title,
+        const marker = new google.maps.Marker({
+          position: { lat, lng },
+          map,
+          title,
           icon: markerIcon,
-          category: category,
-          state: state,
+          category,
+          state,
         });
+
         markers[category].push(marker);
         bounds.extend(marker.getPosition());
       });
 
       map.fitBounds(bounds);
-    },
-  });
+    })
+    .catch(error => {
+      console.error(error);
+    });
 }
 
+
 function toggleMarkers(categoryMarkers, visible) {
-    categoryMarkers.forEach(function (marker) {
-        marker.setVisible(visible);
-    });
+  categoryMarkers.forEach(function (marker) {
+    marker.setVisible(visible);
+  });
 }
 
 function showAllMarkers() {
@@ -111,58 +130,6 @@ function showAllMarkers() {
   });
 
   map.fitBounds(bounds);
-}
-
-function debugMarkers() {
-    console.log(markers.bigfoot);
-  }
-
-function filterMarkersByCityAndState(city, state) {
-    var newBounds = new google.maps.LatLngBounds();
-  
-    Object.values(markers).forEach(function (categoryMarkers) {
-      categoryMarkers.forEach(function (marker) {
-        var markerState = marker.state.toLowerCase();
-        var stateInitial = getStateInitial(state).toLowerCase();
-        var stateName = getStateName(state).toLowerCase();
-  
-        if (
-          (city === '' || marker.title.toLowerCase().includes(city.toLowerCase())) &&
-          (state === '' ||
-            markerState === state.toLowerCase() ||
-            markerState === stateInitial ||
-            markerState === stateName)
-        ) {
-          marker.setMap(map);
-          newBounds.extend(marker.getPosition());
-        } else {
-          marker.setMap(null);
-        }
-      });
-    });
-  
-    if (!newBounds.isEmpty()) {
-      map.fitBounds(newBounds);
-    }
-  }
-
-function filterMarkersByState(state) {
-  var newBounds = new google.maps.LatLngBounds();
-
-  Object.values(markers).forEach(function (categoryMarkers) {
-    categoryMarkers.forEach(function (marker) {
-      if (marker.state.toLowerCase() === state.toLowerCase()) {
-        marker.setMap(map);
-        newBounds.extend(marker.getPosition());
-      } else {
-        marker.setMap(null);
-      }
-    });
-  });
-
-  if (!newBounds.isEmpty()) {
-    map.fitBounds(newBounds);
-  }
 }
 
 initMap();

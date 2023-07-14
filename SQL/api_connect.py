@@ -7,6 +7,7 @@ from sqlalchemy import create_engine, func
 from datetime import datetime
 import os.path
 from flask import Flask, jsonify
+from flask_cors import CORS
 
 data_folder = os.path.join("SQL")
 file_to_open = os.path.join(data_folder, "Supnatural_Map.sqlite")
@@ -29,6 +30,7 @@ Bigfoot_report = Base.classes.bigfoot
 
 # set up flask
 app = Flask(__name__)
+CORS(app, origins='*')
 
 @app.route("/")
 def welcome():
