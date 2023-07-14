@@ -24,7 +24,7 @@ Base.prepare(autoload_with=engine, reflect = True)
 
 # Save reference to the table
 aliens = Base.classes.ufo
-#haunt =  Base.classes.hauntings
+haunt =  Base.classes.hauntings
 Bigfoot_report = Base.classes.bigfoot
 
 # set up flask
@@ -35,7 +35,7 @@ def welcome():
     """Wlecome to the data"""
     return (
         f"Available Routes:<br/>"
-        f"/api/v1.0/bigfoot"
+        f"/api/v1.0/bigfoot<br/>"
         f"/api/v1.0/UFO<br/>"
         f"/api/v1.0/haunting<br/>"
     )
