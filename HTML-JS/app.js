@@ -258,10 +258,4 @@ function filterMarkers() {
   }
 }
 
-
-
-
-
-// here is some shit
-
 initMap();
