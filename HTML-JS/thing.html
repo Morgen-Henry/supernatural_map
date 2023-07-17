@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon" href="data:,">
+    <title>Supernatural API</title>
+    <style>
+        html,
+        body,
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+        
+        #checkboxes {
+            position: absolute;
+            top: 120px;
+            right: 5px;
+            display: flex;
+            flex-direction: column;
+            z-index: 1;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 4px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        #bigfoot-checkbox{
+            margin-bottom: 5px;
+        }
+
+        #hauntedplaces-checkbox{
+            margin-bottom: 5px;
+        }
+
+        #city-search {
+            position: absolute;
+            top: 65px;
+            right: 5px;
+            z-index: 1;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 4px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        } 
+        
+    </style>
+</head>
+<body>
+    <div id="city-search">
+        <select id="state-select">
+            <option value="">Select State</option>
+            <option value="AL">Alabama</option>
+            <option value="AK">Alaska</option>
+            <option value="AZ">Arizona</option>
+            <option value="AR">Arkansas</option>
+            <option value="CA">California</option>
+            <option value="CO">Colorado</option>
+            <option value="CT">Connecticut</option>
+            <option value="DE">Delaware</option>
+            <option value="FL">Florida</option>
+            <option value="GA">Georgia</option>
+            <option value="HI">Hawaii</option>
+            <option value="ID">Idaho</option>
+            <option value="IL">Illinois</option>
+            <option value="IN">Indiana</option>
+            <option value="IA">Iowa</option>
+            <option value="KS">Kansas</option>
+            <option value="KY">Kentucky</option>
+            <option value="LA">Louisiana</option>
+            <option value="ME">Maine</option>
+            <option value="MD">Maryland</option>
+            <option value="MA">Massachusetts</option>
+            <option value="MI">Michigan</option>
+            <option value="MN">Minnesota</option>
+            <option value="MS">Mississippi</option>
+            <option value="MO">Missouri</option>
+            <option value="MT">Montana</option>
+            <option value="NE">Nebraska</option>
+            <option value="NV">Nevada</option>
+            <option value="NH">New Hampshire</option>
+            <option value="NJ">New Jersey</option>
+            <option value="NM">New Mexico</option>
+            <option value="NY">New York</option>
+            <option value="NC">North Carolina</option>
+            <option value="ND">North Dakota</option>
+            <option value="OH">Ohio</option>
+            <option value="OK">Oklahoma</option>
+            <option value="OR">Oregon</option>
+            <option value="PA">Pennsylvania</option>
+            <option value="RI">Rhode Island</option>
+            <option value="SC">South Carolina</option>
+            <option value="SD">South Dakota</option>
+            <option value="TN">Tennessee</option>
+            <option value="TX">Texas</option>
+            <option value="UT">Utah</option>
+            <option value="VT">Vermont</option>
+            <option value="VA">Virginia</option>
+            <option value="WA">Washington</option>
+            <option value="WV">West Virginia</option>
+            <option value="WI">Wisconsin</option>
+            <option value="WY">Wyoming</option>            
+        </select>
+        <input type="text" id="city-input" placeholder="Enter City">
+        <button id="search-button">Search</button>
+        <button id="reset-button">Reset</button>
+    </div>
+    <div id="checkboxes">
+        <label class="marker-checkbox">
+            <input type="checkbox" id="bigfoot-checkbox" checked>Bigfoot
+        </label>
+        <label class="marker-checkbox">
+            <input type="checkbox" id="hauntedplaces-checkbox" checked>Haunted Places
+        </label>
+        <label class="marker-checkbox">
+            <input type="checkbox" id="ufosightings-checkbox" checked>UFO Sightings
+        </label>
+    </div>
+    <div id="map"></div>
+    <script src="app.js"></script> 
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyTMQc1TspKrMM4fXT9B99ct4SLAIp4RQ&libraries=geometry&callback=initMap" async defer></script>
+</body>
+</html>
