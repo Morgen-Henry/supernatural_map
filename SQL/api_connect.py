@@ -68,12 +68,13 @@ def bigfoots():
 @app.route("/api/v1.0/UFO")
 def alienz():
     session = Session(engine)
-    results = session.query(aliens.stateCode, aliens.timeOfSighting, aliens.shape, aliens.duration, aliens.summary, aliens.latitude, aliens.longitude)
+    results = session.query(aliens.country, aliens.stateCode, aliens.timeOfSighting, aliens.shape, aliens.duration, aliens.summary, aliens.latitude, aliens.longitude)
     session.close()
 
     alien_sightings = []
-    for stateCode, timeOfSighting, shape, duration, summary, latitude, longitude in results:
+    for country, stateCode, timeOfSighting, shape, duration, summary, latitude, longitude in results:
         alien_sight_dict = {}
+        alien_sight_dict["country"] = country
         alien_sight_dict["latitude"] = latitude
         alien_sight_dict["longitude"] = longitude
         alien_sight_dict["stateCode"] = stateCode
